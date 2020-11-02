@@ -1,33 +1,34 @@
 import './App.css';
 import { Component } from 'react';
 
-//Converting the App function (basic component) into a more complex component by using 'class' and inheriting from React.Component (imported).
 class App extends Component {
 
   constructor() {
-    //It's needed to call the superclass' constructor to inherit its features. I.e: setState or render method.
     super();
 
-    //the state determines the main resource of information related to the 'current page'.
     this.state = {
-      monsters: [
-        {name: 'Banshee', id: 'id1'},
-        {name: 'Dracula', id: 'id2'},
-        {name: 'Zombie', id: 'id3'},
-      ]
+      monsters: [  /* For next lessons, better empty hardcoded data. */ ]
     };
   }
+
+  //Overriding function for this particular use.
+  //Lifecycle function -> such component was already loaded onto the real DOM.
+  componentDidMount() {
+    //As we want to get a document via an HTTP resource we use fetch method to get such Response inside a Promise.
+    fetch('https://jsonplaceholder.typicode.com/users')
+      //To retrieve the desired data we use json() method over the Response, that returns a Promise containing the data in a usable format.
+      .then(response => response.json())
+      //Once processed such Promise we use the returned array and set it as state prop.
+      .then(json => this.setState({monsters: json}));
+  }
   
-  //render method is called every time there's a change on the DOM and refreshes it.
-  //It returns the HTML structure to follow later (in its own syntax).
   render() {
     return (
       <div className="App">
-        {this.state.monsters.map((monster) => 
-          //key attribute is requested by console for performance reasons.
-          //So, it's convenient to make use of 'key' attribute to identify the modified element to update.
-          <h1 key={monster.id}>{monster.name}</h1>
-        )}
+        {this.state.monsters.map(monster => 
+        <h1 key={monster.id}>
+          {monster.name}
+        </h1>)}
       </div>
     );
   }
