@@ -1,0 +1,14 @@
+.card-list {
+  width: 85vw;
+  margin: 0 auto;
+  /* Sets the space inside in a grid style */
+  display: grid;
+  /* Distributes all the space in 4 columns with the same size (fraction or fr) per row. */
+  /* If any column had 2 fractions the space would be distributed in 5 parts of the same size, between 4 columns. */
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  /* 
+    Sets the space between columns and rows.
+    gap is the updated version of grid-gap.
+  */
+  gap: 20px;
+}
