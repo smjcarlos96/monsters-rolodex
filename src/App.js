@@ -19,13 +19,12 @@ class App extends Component {
   
   render() {
     return (
-      <div className="App">
-        <CardList name="Robbie">
-          {
-            //Putting all the iterated elements inside the card list would apply the column style defined to all elements.
-            this.state.monsters.map(monster => <h1 key={monster.id}>{monster.name}</h1>)
-          }
-        </CardList>
+      <div className='App'>
+        {/*
+          For single responsibility conventions, iterating 'monsters' would be moved to its containing element instead of App component. 
+          For this reason monsters is passed as a property.
+        */}
+        <CardList monsters={this.state.monsters}/>
       </div>
     );
   }
