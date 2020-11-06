@@ -8,7 +8,11 @@ class App extends Component {
   constructor() {
     super();
 
-    this.state = { monsters: [] };
+    this.state = { 
+      monsters: [],
+      // this field in the state will represent anything the user types in the text input.
+      seachField: '',
+    };
   }
 
   componentDidMount() {
@@ -21,10 +25,12 @@ class App extends Component {
     return (
       <div className='App'>
         {/*
-          For single responsibility conventions, iterating 'monsters' would be moved to its containing element instead of App component. 
-          For this reason monsters is passed as a property.
+          onChange attribute is used to capture (asyncrhonously through a method) any changes in such text field.
+          'e' represents the event triggered (change), 'target' is the element which triggered it (input), and 'value' is the data typed.
         */}
-        <CardList monsters={this.state.monsters}/>
+        <input type='search' placeholder='search monsters' onChange={e => {this.setState({seachField: e.target.value}
+        /* , () => {This second parameter callback function can be used to trigger any order right after setting the state, because it's asynchronous.} */)}} />
+        <CardList monsters={this.state.monsters} />
       </div>
     );
   }
