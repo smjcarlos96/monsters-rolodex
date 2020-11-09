@@ -10,8 +10,7 @@ class App extends Component {
 
     this.state = { 
       monsters: [],
-      // this field in the state will represent anything the user types in the text input.
-      seachField: '',
+      searchField: '',
     };
   }
 
@@ -22,15 +21,25 @@ class App extends Component {
   }
   
   render() {
+    // We make use of destructuring (declarating multiple variables between curly brackets and asigning another object, automatically
+    // decomposing it in the variables).
+    /* 
+      const monsters = this.state.monsters;
+      const searchField = this.state.searchField;
+      is the same as this thing below.
+    */
+    // The constants declared above will be used to filter and get only the monsters that contain the string entered in the searchbox.
+    const { monsters, searchField } = this.state;
+
+    const filteredMonsters = monsters.filter(monster => 
+      monster.name.toLowerCase().includes(searchField.toLowerCase())
+    );
+
     return (
       <div className='App'>
-        {/*
-          onChange attribute is used to capture (asyncrhonously through a method) any changes in such text field.
-          'e' represents the event triggered (change), 'target' is the element which triggered it (input), and 'value' is the data typed.
-        */}
-        <input type='search' placeholder='search monsters' onChange={e => {this.setState({seachField: e.target.value}
-        /* , () => {This second parameter callback function can be used to trigger any order right after setting the state, because it's asynchronous.} */)}} />
-        <CardList monsters={this.state.monsters} />
+        <input type='search' placeholder='search monsters' onChange={e => {this.setState({searchField: e.target.value})}} />
+        {/* The card list monsters should be the filtered monsters instead of the raw data from the state (which we should keep). */}
+        <CardList monsters= { filteredMonsters } />
       </div>
     );
   }
