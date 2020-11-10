@@ -30,12 +30,12 @@ class App extends Component {
   /*
     2. There are two ways to do so. First one is a normal function like:
     handleChange(e) { this.setState({searchField: e.target.value}) }
-    and setting SearchBox attribute to {hangleChange} (no need to put brackets, it will pass the event object likewise).
+    and setting SearchBox attribute to {this.handleChange} (no need to put brackets, it will pass the event object likewise).
     But will be needed to set the meaning for "this" keyword from the function scope to the class scope. Look for comment 3.
 
     Second way is to define an arrow function like:
     const handleChange = (e) => {this.setState({searchField: e.target.value})}
-    and setting SearchBox attribute only to {handleChange}.
+    and setting SearchBox attribute only to {this.handleChange}.
     The reason why "this" works is because anonymous functions are defined under class scope and not function scope. 
   */
 
@@ -48,7 +48,7 @@ class App extends Component {
 
     return (
       <div className='App'>
-        {/* 1. Here in SearchBox we define handleChange inside the tag but we can also define it outside. Chack comment number 2. */}
+        {/* 1. Here in SearchBox we define handleChange inside the tag but we can also define it outside. Check comment number 2. */}
         <SearchBox placeholder='search monsters' handleChange={e => { this.setState({ searchField: e.target.value }) }} />
         <CardList monsters={filteredMonsters} />
       </div>
